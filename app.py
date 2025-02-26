@@ -141,16 +141,7 @@ async def on_chat_start():
     msg.content = f"`{file.name}` loaded. You can now ask questions!"
     await msg.update()
 
-    ##########################################################################
-    # Exercise 1:
-    # Now we have search engine setup, our Chat with PDF application can do
-    # RAG architecture pattern. Please use the appropriate RetrievalQA Chain
-    # from Langchain. 
-    # 
-    # Remember, we would want to set the model temperature to
-    # 0 to ensure model outputs do not vary across runs, and we would want to
-    # also return sources to our answers.
-    ##########################################################################
+
     model = ChatOpenAI(
         model="gpt-3.5-turbo-16k-0613",
         temperature=0,
@@ -162,7 +153,7 @@ async def on_chat_start():
         chain_type="stuff",
         retriever=search_engine.as_retriever(max_tokens_limit=4097),
     )
-    ##########################################################################
+
 
     # We are saving the chain in user_session, so we do not have to rebuild
     # it every single time.
